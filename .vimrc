@@ -12,3 +12,11 @@ filetype plugin indent on
 set number
 
 syntax on
+
+" show a line at column 80
+set colorcolumn=80
+
+" Shortcuts "
+" Tabs
+nnoremap <C-Left>   :tabprevious<CR>
+nnoremap <C-Right>  :tabnext<CR>
