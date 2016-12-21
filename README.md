@@ -7,6 +7,12 @@ Dependencies:
 * Google Fonts
 * GNU Stow
 * xorg-xbacklight (for brightness controls)
+* compton
+
+For i3blocks:
+
+* acpi
+* amixer
 
 Setup:  
 `stow <application_name>`
