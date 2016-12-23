@@ -29,6 +29,9 @@ font pango:Space Mono 10
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Disable window focus following mouse
+focus_follows_mouse no
+
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
 
@@ -111,8 +114,9 @@ bindsym $mod+a focus parent
 set $ws1 "1: Terminals "
 set $ws2 "2: Firefox "
 set $ws3 "3: Turtl "
-set $ws4 "4: Music "
+set $ws4 "4: Code "
 set $ws5 "5: Files "
+set $ws9 "9: Music "
 set $ws10 "10: Chat "
 
 # switch to workspace
@@ -124,7 +128,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
+bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
@@ -136,15 +140,16 @@ bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # assign programs to workspaces
 assign [class="Termite"] $ws1
 assign [class="Firefox"] $ws2
 assign [class="Turtl"] 	 $ws3
-assign [class="Google Play Music Desktop Player"] 	 $ws3
+assign [class="Termite"] $ws4
 assign [class="Nautilus"] $ws5
+assign [class="Google Play Music Desktop Player"] 	 $ws9
 assign [class="Chromium"] $ws10
 
 
@@ -185,6 +190,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
     status_command i3blocks -c ~/.i3/i3blocks.conf
+    font pango:DejaVu Sans Mono, Awesome 9
     colors {
         background $bg-color
         separator #757575
