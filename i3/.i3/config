@@ -111,10 +111,10 @@ bindsym $mod+a focus parent
 #
 
 # workspace definitions
-set $ws1 "1: Terminals "
+set $ws1 "1: Editor "
 set $ws2 "2: Firefox "
 set $ws3 "3: Turtl "
-set $ws4 "4: Code "
+set $ws4 "4: Terminals "
 set $ws5 "5: Files "
 set $ws9 "9: Music "
 set $ws10 "10: Chat "
@@ -144,7 +144,7 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # assign programs to workspaces
-assign [class="Termite"] $ws1
+assign [class="Gvim"] $ws1
 assign [class="Firefox"] $ws2
 assign [class="Turtl"] 	 $ws3
 assign [class="Termite"] $ws4
@@ -213,3 +213,4 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 1 # decrease screen brightnes
 # Commands on startup
 exec_always feh --bg-scale /home/sadman/Pictures/wallpaper.jpg
 exec_always compton -f
+exec nm-applet
