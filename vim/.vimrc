@@ -20,3 +20,8 @@ set colorcolumn=80
 " Tabs
 nnoremap <C-Left>   :tabprevious<CR>
 nnoremap <C-Right>  :tabnext<CR>
+
+if has("gui_running")
+    set guioptions -=T
+    set guioptions -=m
+endif
