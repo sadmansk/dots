@@ -24,4 +24,6 @@ nnoremap <C-Right>  :tabnext<CR>
 if has("gui_running")
     set guioptions -=T
     set guioptions -=m
+    set guioptions -=r
+    set guioptions -=L
 endif
