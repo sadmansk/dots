@@ -200,7 +200,7 @@ assign [class="Chromium"] $ws10
 #workspace $ws2 gaps outer 100
 
 # lock the screen
-bindsym $mod+x exec "i3lock -i $HOME/Pictures/wallpaper.jpg"
+bindsym $mod+x exec "~/.i3/scripts/lock.sh"
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
