@@ -3,8 +3,9 @@ rofi.modi: run
 rofi.font: Space Mono 18
 rofi.width: 100
 rofi.lines: 3
-!rofi.columns: 1
+rofi.columns: 1
 rofi.opacity: 85
+rofi.line-margin: 10
 !                    bg       fg      altbg    hlbg     hlfg
 rofi.color-normal: #2f343f, #f3f4f5, #2f343f, #2f343f, #9575cd
 rofi.color-urgent: #2f343f, #f3f4f5, #2f343f, #2f343f, #9575cd

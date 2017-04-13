@@ -2,6 +2,15 @@
 # ~/.bashrc
 #
 
+export VISUAL="vim"
+export TERM="screen-256color"
+
+# setup powerline
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -21,3 +30,9 @@ export HISTFILE=~/.bash_eternal_history
 # Force prompt to write history after every command.
 # http://superuser.com/questions/20900/bash-history-loss
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
+
+# Run ssh-agent after every login
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+    eval `ssh-agent -s`
+    ssh-add
+fi

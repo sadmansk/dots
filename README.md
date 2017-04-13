@@ -9,10 +9,19 @@ Dependencies:
 * xorg-xbacklight (for brightness controls)
 * compton
 
+For bash:
+
+* powerline
+
 For i3blocks:
 
 * acpi
 * amixer
+
+For vim:
+
+* vundle
+* powerline
 
 Setup:  
 `stow <application_name>`
