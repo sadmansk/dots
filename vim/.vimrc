@@ -21,6 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'racer-rust/vim-racer'
 
 " All of your Plugins must be added before the following line
 call vundle#end()           " required
@@ -48,6 +49,12 @@ set colorcolumn=80
 " Tabs
 nnoremap <tab> :tabnext<CR>
 nnoremap <s-tab>   :tabprevious<CR>
+
+" Rust stuff "
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 if has("gui_running")
     set guioptions -=T
