@@ -21,6 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
 Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
 
 " All of your Plugins must be added before the following line
@@ -51,6 +52,9 @@ nnoremap <tab> :tabnext<CR>
 nnoremap <s-tab>   :tabprevious<CR>
 
 " Rust stuff "
+set hidden
+let g:racer_cmd = "/path/to/racer/bin"
+let g:racer_experimental_completer = 1
 au FileType rust nmap gd <Plug>(rust-def)
 au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
