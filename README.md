@@ -21,7 +21,6 @@ For i3blocks:
 For vim:
 
 * vundle
-* powerline
 
-Setup:  
+Setup:
 `stow <application_name>`

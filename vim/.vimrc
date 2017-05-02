@@ -12,17 +12,17 @@ filetype off                " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-" powerline
-Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-airline/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'rust-lang/rust.vim'
 Plugin 'racer-rust/vim-racer'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'ramele/agrep'
 
 " All of your Plugins must be added before the following line
 call vundle#end()           " required
@@ -48,8 +48,14 @@ set colorcolumn=80
 
 " Shortcuts "
 " Tabs
-nnoremap <tab> :tabnext<CR>
-nnoremap <s-tab>   :tabprevious<CR>
+nnoremap <tab>      :tabnext<CR>
+nnoremap <s-tab>    :tabprevious<CR>
+
+" Agrep stuff
+" Open files in a split window
+let g:agrep_results_win_sp_mod = 'vs'
+nnoremap K          :Agrep -r "<C-R><C-W>"<CR>:cw<CR>
+
 
 " Rust stuff "
 set hidden
@@ -60,11 +66,20 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
+" NERD tree settings "
+" Show nerdtree if no files are specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Ctrl+n to toggle
+map <C-n> :NERDTreeToggle<CR>
+
+" Incase GVim is being used "
 if has("gui_running")
     set guioptions -=T
     set guioptions -=m
     set guioptions -=r
     set guioptions -=L
+    " disable mouse
     set mouse =
 endif
 
@@ -82,3 +97,5 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+
+set encoding=utf-8 nobomb
