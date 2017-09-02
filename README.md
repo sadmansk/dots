@@ -8,6 +8,8 @@ Dependencies:
 * GNU Stow
 * xorg-xbacklight (for brightness controls)
 * compton
+* i3blocks
+* feh (and place wallpaper in `$HOME/Pictures/wallpaper.jpg`
 
 For bash:
 
@@ -17,6 +19,10 @@ For i3blocks:
 
 * acpi
 * amixer
+
+For i3lock:
+
+* ffmpeg
 
 For vim:
 
