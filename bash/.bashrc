@@ -12,11 +12,12 @@ export VISUAL="vim"
 export TERM="screen-256color"
 
 # setup powerline
-powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-. /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
-
+if [ -f `which powerline-daemon` ]; then
+    powerline-daemon -q
+    POWERLINE_BASH_CONTINUATION=1
+    POWERLINE_BASH_SELECT=1
+    . /usr/share/powerline/bindings/bash/powerline.sh
+fi
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -98,3 +99,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# CUDA stuff
+export LD_LIBRARY_PATH="LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/extras/CUPTI/lib64"
