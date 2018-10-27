@@ -102,3 +102,19 @@ fi
 
 # CUDA stuff
 export LD_LIBRARY_PATH="LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/extras/CUPTI/lib64"
+
+# Add environment variable COCOS_CONSOLE_ROOT for cocos2d-x
+export COCOS_CONSOLE_ROOT="/home/sadman/repos/cocos2d-x/tools/cocos2d-console/bin"
+export PATH=$COCOS_CONSOLE_ROOT:$PATH
+
+# Add environment variable COCOS_X_ROOT for cocos2d-x
+export COCOS_X_ROOT="/home/sadman/repos"
+export PATH=$COCOS_X_ROOT:$PATH
+
+# Add environment variable COCOS_TEMPLATES_ROOT for cocos2d-x
+export COCOS_TEMPLATES_ROOT="/home/sadman/repos/cocos2d-x/templates"
+export PATH=$COCOS_TEMPLATES_ROOT:$PATH
+
+# Add environment variable ANT_ROOT for cocos2d-x
+export ANT_ROOT="/usr/bin"
+export PATH=$ANT_ROOT:$PATH

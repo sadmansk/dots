@@ -3,6 +3,12 @@
         "type": "section",
         "description": "Behavior"
     },
+    "show-all-workspaces": {
+        "type": "switch",
+        "default": false,
+        "description": "Show windows from all workspaces",
+        "value": false
+    },
     "enable-alerts": {
         "type": "switch",
         "default": true,
@@ -19,6 +25,7 @@
         "type": "switch",
         "default": false,
         "description": "Reverse the direction of mouse-wheel scrolling in the window list",
+        "dependency": "enable-scrolling",
         "value": false
     },
     "middle-click-close": {
@@ -43,5 +50,25 @@
         "description": "Show window thumbnails on hover",
         "value": true
     },
-    "__md5__": "b0efcd23c11ece23954b5bfb8e518814"
+    "window-preview-show-label": {
+        "type": "switch",
+        "default": true,
+        "description": "Show title above thumbnail",
+        "dependency": "window-preview",
+        "value": true
+    },
+    "window-preview-scale": {
+        "type": "radiogroup",
+        "default": 1,
+        "description": "Thumbnail size",
+        "options": {
+            "Small": 0.75,
+            "Medium": 1,
+            "Large": 1.25,
+            "Largest": 1.5
+        },
+        "dependency": "window-preview",
+        "value": 1
+    },
+    "__md5__": "afda6fe664342bc40bbff3dc8032b47b"
 }

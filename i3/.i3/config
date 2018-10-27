@@ -196,7 +196,7 @@ assign [class="Mozilla Thunderbird"] $ws5
 assign [class="Nautilus"] $ws6
 assign [class="Steam"] $ws8
 assign [class="Google Play Music Desktop Player"] 	 $ws9
-assign [class="Chromium"] $ws10
+assign [class="Signal"] $ws10
 
 # gaps settings per workspace
 #workspace $ws2 gaps outer 100
@@ -253,9 +253,9 @@ bar {
 }
 
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 #
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 1 # increase screen brightness
@@ -266,3 +266,5 @@ exec_always feh --bg-scale $HOME/Pictures/wallpaper.jpg
 exec_always compton -f
 exec nm-applet
 exec nextcloud
+exec Desktop-Bridge --no-window
+exec redshift
