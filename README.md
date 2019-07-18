@@ -15,6 +15,13 @@ For bash:
 
 * powerline
 
+For zsh:
+
+* powerline
+* oh-my-zsh
+* powerlevel9k
+* nerd-fonts
+
 For i3blocks:
 
 * acpi
