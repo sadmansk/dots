@@ -69,9 +69,6 @@ export ZSH="/Users/kazsadma/.oh-my-zsh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -106,3 +103,10 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 POWERLEVEL9K_SHORTEN_STRATEGY="truncate_beginning"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
+
+source $ZSH/oh-my-zsh.sh
+
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

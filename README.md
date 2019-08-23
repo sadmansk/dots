@@ -21,6 +21,7 @@ For zsh:
 * oh-my-zsh
 * powerlevel9k
 * nerd-fonts
+* fzf
 
 For i3blocks:
 
@@ -34,6 +35,7 @@ For i3lock:
 For vim:
 
 * vundle
+* fzf
 
 Setup:
 `stow <application_name>`

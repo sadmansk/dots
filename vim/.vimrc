@@ -1,6 +1,8 @@
 " colorscheme stuff
 set t_Co=256
 colorscheme jellybeans
+set shell=zsh
+let mapleader = " "
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -9,6 +11,7 @@ set tabstop=4
 set nocompatible            " be iMproved, required
 filetype off                " required
 
+set rtp+=/usr/local/opt/fzf
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -23,6 +26,8 @@ Plugin 'racer-rust/vim-racer'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'ramele/agrep'
+Plugin 'junegunn/fzf.vim'
+Plugin 'ludovicchabant/vim-gutentags'
 
 " All of your Plugins must be added before the following line
 call vundle#end()           " required
@@ -72,6 +77,27 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Ctrl+n to toggle
 map <C-n> :NERDTreeToggle<CR>
+
+" fzf stuff
+set rtp+=/usr/local/opt/fzf
+" Find in git tracked files
+nmap <Leader>f :GFiles<CR>
+" Find in all files
+nmap <Leader>F :Files<CR>
+" Find in open buffer
+nmap <Leader>b :Buffers<CR>
+" Find in buffer history
+nmap <Leader>B :History<CR>
+" Find in current tag buffer
+nmap <Leader>t :BTags<CR>
+" Find in all project tags
+nmap <Leader>T :Tags<CR>
+" Find in lines in current buffer
+nmap <Leader>l :BLines<CR>
+" Find in all lines in loaded buffers
+nmap <Leader>L :Lines<CR>
+" Find in mappings
+nmap <Leader>M :Maps<CR>
 
 " Incase GVim is being used "
 if has("gui_running")
