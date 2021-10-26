@@ -37,5 +37,11 @@ For vim:
 * vundle
 * fzf
 
+For nvim:
+
+* vimplug
+* fzf
+* eclipse.jdt.ls
+
 Setup:
 `stow <application_name>`
