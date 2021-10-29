@@ -110,3 +110,33 @@ fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/qt/bin:$PATH"
+export PATH=$PATH:/usr/local/bin  # MIDWAY PATH: Path changed for ssh
+export PATH=$HOME/.toolbox/bin:$PATH
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+export PATH=$PATH:$HOME/zk/bin
+export ZK_PATH="$HOME/Zettelkasten"
+
+export FZF_DEFAULT_OPTS="--height=40% --multi --tiebreak=begin \
+  --bind 'ctrl-y:execute-silent(echo {} | pbcopy)' \
+  --bind 'alt-down:preview-down,alt-up:preview-up' \
+  --bind \"ctrl-v:execute-silent[ \
+    tmux send-keys -t \{left\} Escape :vs Space && \
+    tmux send-keys -t \{left\} -l {} && \
+    tmux send-keys -t \{left\} Enter \
+  ]\"
+  --bind \"ctrl-x:execute-silent[ \
+    tmux send-keys -t \{left\} Escape :sp Space && \
+    tmux send-keys -t \{left\} -l {} && \
+    tmux send-keys -t \{left\} Enter \
+  ]\"
+  --bind \"ctrl-o:execute-silent[ \
+    tmux send-keys -t \{left\} Escape :read Space ! Space echo Space && \
+    tmux send-keys -t \{left\} -l \\\"{}\\\" && \
+    tmux send-keys -t \{left\} Enter \
+  ]\""
+
+# Slack Notifier for Terminal Commands
+. ~/.terminal_slack_notifier
+
+export PATH="/usr/local/opt/libarchive/bin:$PATH"
