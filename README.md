@@ -42,6 +42,8 @@ For nvim:
 * vimplug
 * fzf
 * eclipse.jdt.ls
+* node (installing through nvm might be easiest if package manager is bad)
+* jedi-language-server
 
 Setup:
 `stow <application_name>`

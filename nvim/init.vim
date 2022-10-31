@@ -26,6 +26,9 @@ set ttyfast                 " Speed up scrolling in Vim
 " set spell                 " enable spell check (may need to download language package)
 " set noswapfile            " disable creating swap file
 " set backupdir=~/.cache/vim " Directory to store backup files.
+if has('python3')
+    set pyx=3
+endif
 
 let mapleader = " "
 set shell=zsh
@@ -52,7 +55,7 @@ call plug#begin(stdpath('data').'/plugged')
  Plug 'airblade/vim-gitgutter'
  Plug 'neovim/nvim-lspconfig'
  Plug 'nvim-lua/completion-nvim'
- Plug 'mfussenegger/nvim-jdtls'
+ "Plug 'mfussenegger/nvim-jdtls'
  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
  Plug 'kyazdani42/nvim-web-devicons' " for file icons
  Plug 'kyazdani42/nvim-tree.lua'
@@ -89,6 +92,9 @@ let g:neoterm_autoinsert = 1
 nnoremap <c-t> :Ttoggle<CR>
 inoremap <c-t> <Esc>:Ttoggle<CR>
 tnoremap <c-t> <c-\><c-n>:Ttoggle<CR>
+" Tabs
+nnoremap <tab>      :tabnext<CR>
+nnoremap <s-tab>    :tabprevious<CR>
 
 " fzf stuff
 " Find in git tracked files
@@ -196,7 +202,7 @@ EOF
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 lua require 'nvim-tree'.toggle()
-nnoremap <C-r> :NvimTreeRefresh<CR>
+nnoremap <C-m> :NvimTreeRefresh<CR>
 
 " open new split panes to right and below
 set splitright
@@ -204,3 +210,31 @@ set splitbelow
 
 " key mappings
 nnoremap <leader>v :e $MYVIMRC<CR>
+
+" config imports
+function! BrazilWorkspaceRoot()
+  let l:working_directory = getcwd()
+  let l:workspace_root = split(l:working_directory, "/")[0:4]
+  return "/" . join(l:workspace_root, "/")
+endfunction
+
+function! BrazilOpenJDKLocation()
+  let l:workspace_directory=BrazilWorkspaceRoot()
+  let l:jdk_path=""
+  if (isdirectory(l:workspace_directory."/env/OpenJDK8-1.1"))
+      let l:jdk_path=l:workspace_directory."/env/OpenJDK8-1.1"
+  elseif (isdirectory(l:workspace_directory."/env/JDK8-1.0"))
+      let l:jdk_path=l:workspace_directory."/env/JDK8-1.0"
+  endif
+  
+  if (empty(l:jdk_path))
+    return "/apollo/env/JavaSE11/jdk-11/"
+  else
+    return l:jdk_path . "/runtime/jdk1.8/"
+  endif
+endfunction
+
+function! SetBrazilJDKHome()
+  let $JDK_HOME=BrazilOpenJDKLocation()
+endfunction
+call SetBrazilJDKHome()

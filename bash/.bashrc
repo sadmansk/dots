@@ -120,3 +120,5 @@ export ANT_ROOT="/usr/bin"
 export PATH=$ANT_ROOT:$PATH
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+export PATH=$HOME/.toolbox/bin:$PATH

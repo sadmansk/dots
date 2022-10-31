@@ -11,7 +11,9 @@ set tabstop=4
 set nocompatible            " be iMproved, required
 filetype off                " required
 
-set rtp+=/usr/local/opt/fzf
+" fzf stuff
+set rtp+=~/.fzf
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -26,6 +28,7 @@ Plugin 'racer-rust/vim-racer'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'ramele/agrep'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'bouk/vim-markdown'
@@ -78,9 +81,6 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Ctrl+n to toggle
 map <C-n> :NERDTreeToggle<CR>
-
-" fzf stuff
-set rtp+=/usr/local/opt/fzf
 " Find in git tracked files
 nmap <Leader>f :GFiles<CR>
 " Find in all files
