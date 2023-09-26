@@ -4,12 +4,14 @@ Dot files for Linux (and maybe some \*nix)
 Dependencies:
 
 * Font Awesome 4.0+
-* Google Fonts
-* GNU Stow
+* Nerd Fonts
+* Google Fonts (maybe not needed anymore)
+* GNU Stow (optional, makes it easy to manage dot files)
 * xorg-xbacklight (for brightness controls)
 * compton
 * i3blocks
 * feh (and place wallpaper in `$HOME/Pictures/wallpaper.jpg`
+* rg (ripgrep)
 
 For bash:
 
@@ -36,14 +38,14 @@ For vim:
 
 * vundle
 * fzf
-
-For nvim:
-
-* vimplug
-* fzf
 * eclipse.jdt.ls
 * node (installing through nvm might be easiest if package manager is bad)
 * jedi-language-server
+
+For nvim:
+
+* packer
+* fzf
 
 Setup:
 `stow <application_name>`
