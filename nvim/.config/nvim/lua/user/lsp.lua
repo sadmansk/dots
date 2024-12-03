@@ -45,6 +45,22 @@ lsp.set_preferences({
     }
 })
 
+require('lspconfig').tsserver.setup({
+  settings = {
+    gopls = {
+      env = {
+        GOPACKAGESDRIVER = './tools/gopackagesdriver.sh'
+      },
+      directoryFilters = {
+        "-bazel-bin",
+        "-bazel-out",
+        "-bazel-testlogs",
+        "-bazel-mypkg",
+      },
+    },
+  },
+})
+
 lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = false }
 
@@ -54,9 +70,9 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
     vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
     vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
+    vim.keymap.set("n", "<leader>rr", function() vim.lsp.buf.references() end, opts)
+    vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
     vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
@@ -65,3 +81,6 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = true
 })
+
+-- disable unless we are debugging lsp
+vim.lsp.set_log_level("off")

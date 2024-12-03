@@ -75,6 +75,18 @@ return packer.startup(function(use)
 --    use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server (e.g. rename file & update imports)
 --    use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
 
+    -- debugging
+    use({
+        'mfussenegger/nvim-dap',
+        requires = {
+            'rcarriga/nvim-dap-ui',
+            'theHamsta/nvim-dap-virtual-text',
+            'nvim-neotest/nvim-nio',
+            'leoluz/nvim-dap-go',
+			'williamboman/mason.nvim',
+        }
+    })
+
     -- programming specific
     use('google/vim-maktaba')
     use('bazelbuild/vim-bazel')
@@ -105,8 +117,13 @@ return packer.startup(function(use)
 
     -- treesitter configuration
     use({ "nvim-treesitter/nvim-treesitter", run = ':TSUpdate'})
+    use("nvim-treesitter/nvim-treesitter-context")
 
+    -- save sessions
+    use("tpope/vim-obsession")
 
+    -- misc
+    use("godlygeek/tabular")
     if packer_bootstrap then
         require("packer").sync()
     end

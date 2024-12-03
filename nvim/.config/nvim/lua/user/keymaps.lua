@@ -34,7 +34,8 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
-keymap("n", "<leader>v", ":e $MYVIMRC<CR>", opts)
+keymap("n", "<leader>vo", ":e $MYVIMRC<CR>", opts)  -- open config
+keymap("n", "<leader>vr", ":so $MYVIMRC<CR>", opts) -- reload config
 
 -- Visual --
 -- Stay in indent mode
@@ -68,6 +69,8 @@ keymap("n", "<leader>m", ":MaximizerToggle!<CR>", opts)
 -- nvim-tree
 keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<C-m>", ":NvimTreeRefresh<CR>", opts)
+-- tree find
+keymap("n", "<C-f>", ":NvimTreeFindFile<CR>", opts)
 
 keymap("n", "<tab>", ":tabnext<CR>", opts)
 keymap("n", "<s-tab>", ":tabprevious<CR>", opts)
@@ -76,15 +79,22 @@ keymap("n", "<s-tab>", ":tabprevious<CR>", opts)
 -- find files within current working directory, respects .gitignore
 keymap("n", "<leader>ff", "<cmd>Telescope find_files no_ignore=true<cr>", opts) -- find files within current working directory, respects .gitignore
 keymap("n", "<leader>fg", "<cmd>Telescope find_files<cr>", opts)				-- find files within current working directory, respects .gitignore
+
 keymap("n", "<leader>fr", "<cmd>Telescope lsp_references<cr>", opts)			-- lists lsp references for word under cursor
 keymap("n", "<leader>fd", "<cmd>Telescope lsp_definitions<cr>", opts)			-- find lsp defiitions for word under cursor
+keymap("n", "<leader>fi", "<cmd>Telescope lsp_implementations<cr>", opts)			-- find lsp implementations for word under cursor
 keymap("n", "<leader>fl", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", opts)		-- lists all lsp symbols in current workspace
+
 keymap("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", opts)					-- find string in current working directory as you type
 keymap("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", opts)				-- find string under cursor in current working directory
+
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", opts)					-- list open buffers in current neovim instance
 keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", opts)					-- list available help tags
+keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", opts)					-- list available keymaps
+
+keymap("n", "<leader>fp", "<cmd>Telescope resume<cr>", opts)					-- resume last search
+
 
 -- not keymaps, but custom functions
 -- TODO: move to a different files
 vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
-

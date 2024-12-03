@@ -37,5 +37,16 @@ if has('python3') \
 endif"
 
 -- autoformat files on save
-vim.cmd "autocmd BufWritePost,FileWritePost *.go silent! !gofmt -w %"
+vim.cmd "autocmd BufWritePost,FileWritePost *.go silent! !gofumpt -l -w %"
 vim.cmd "autocmd BufWritePost,FileWritePost *.cue silent! !cue fmt %"
+vim.cmd "autocmd BufWritePost,FileWritePost *.tf silent! !terraform fmt %"
+
+-- remove trailing whitespace
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  callback = function()
+        local save_cursor = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
+})
