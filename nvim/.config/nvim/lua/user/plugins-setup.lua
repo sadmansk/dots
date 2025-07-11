@@ -13,7 +13,7 @@ local packer_bootstrap = ensure_packer() -- true if packer was just installed
 
 -- autocommand that reloads neovim and installs/updates/removes plugins
 -- when file is saved
-vim.cmd([[ 
+vim.cmd([[
 augroup packer_user_config
 autocmd!
 autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
@@ -38,11 +38,13 @@ return packer.startup(function(use)
 
     -- git stuff
     use("tpope/vim-fugitive")
+    use("ThePrimeagen/git-worktree.nvim")
     -- file icons
     use("kyazdani42/nvim-web-devicons")
     use("kyazdani42/nvim-tree.lua")
     -- colorscheme
     use("dracula/vim")
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     use("christoomey/vim-tmux-navigator")
     use({"akinsho/toggleterm.nvim", tag='*'})
@@ -52,28 +54,25 @@ return packer.startup(function(use)
 
     -- fuzzy finding w/ telescope
     use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- dependency for better sorting performance
-    use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" }) -- fuzzy finder
+    use({ "nvim-telescope/telescope.nvim", branch = "master" }) -- fuzzy finder
 
---    -- autocompletion
---    use("hrsh7th/nvim-cmp") -- completion plugin
---    use("hrsh7th/cmp-buffer") -- source for text in buffer
---    use("hrsh7th/cmp-path") -- source for file system paths
---
---    -- snippets
---    use("L3MON4D3/LuaSnip") -- snippet engine
---    use("saadparwaiz1/cmp_luasnip") -- for autocompletion
---    use("rafamadriz/friendly-snippets") -- useful snippets
---
---    -- managing & installing lsp servers, linters & formatters
---    use("williamboman/mason.nvim") -- in charge of managing lsp servers, linters & formatters
---    use("williamboman/mason-lspconfig.nvim") -- bridges gap b/w mason & lspconfig
---
---    -- configuring lsp servers
---    use("neovim/nvim-lspconfig") -- easily configure language servers
---    use("hrsh7th/cmp-nvim-lsp") -- for autocompletion
---    use({ "glepnir/lspsaga.nvim", branch = "main" }) -- enhanced lsp uis
---    use("jose-elias-alvarez/typescript.nvim") -- additional functionality for typescript server (e.g. rename file & update imports)
---    use("onsails/lspkind.nvim") -- vs-code like icons for autocompletion
+    -- LSP configuration
+    use("neovim/nvim-lspconfig") -- Base LSP configuration
+    use("mason-org/mason.nvim") -- LSP installer
+    use("mason-org/mason-lspconfig.nvim") -- Bridge between mason and lspconfig
+
+    -- Autocompletion
+    use("hrsh7th/nvim-cmp") -- completion plugin
+    use("hrsh7th/cmp-buffer") -- source for text in buffer
+    use("hrsh7th/cmp-path") -- source for file system paths
+    use("hrsh7th/cmp-nvim-lsp") -- LSP source for nvim-cmp
+    use("hrsh7th/cmp-nvim-lua") -- Lua source for nvim-cmp
+    use("onsails/lspkind.nvim") -- icons for completions
+
+    -- Snippets
+    use("L3MON4D3/LuaSnip") -- snippet engine
+    use("saadparwaiz1/cmp_luasnip") -- for autocompletion
+    use("rafamadriz/friendly-snippets") -- useful snippets
 
     -- debugging
     use({
@@ -91,32 +90,8 @@ return packer.startup(function(use)
     use('google/vim-maktaba')
     use('bazelbuild/vim-bazel')
 
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v1.x',
-		requires = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},             -- Required
-			{'williamboman/mason.nvim'},           -- Optional
-			{'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},         -- Required
-			{'hrsh7th/cmp-nvim-lsp'},     -- Required
-			{'hrsh7th/cmp-buffer'},       -- Optional
-			{'hrsh7th/cmp-path'},         -- Optional
-			{'saadparwaiz1/cmp_luasnip'}, -- Optional
-			{'hrsh7th/cmp-nvim-lua'},     -- Optional
-
-			-- Snippets
-			{'L3MON4D3/LuaSnip'},             -- Required
-			{'rafamadriz/friendly-snippets'}, -- Optional
-		}
-	}
-
-
     -- treesitter configuration
-    use({ "nvim-treesitter/nvim-treesitter", run = ':TSUpdate'})
+    use({ "nvim-treesitter/nvim-treesitter", branch = 'master', run = ':TSUpdate'})
     use("nvim-treesitter/nvim-treesitter-context")
 
     -- save sessions

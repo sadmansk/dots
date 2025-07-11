@@ -37,8 +37,14 @@ nvimtree.setup {
     args = {}
   },
   view = {
-    width = 40,
+    width = {
+        min = 40,
+        max = 80
+    },
     side = 'left',
+  },
+  renderer = {
+    symlink_destination = true,
   },
   actions = {
     open_file = {

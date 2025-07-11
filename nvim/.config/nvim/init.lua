@@ -10,6 +10,7 @@ require("user.nvim-treesitter")
 require("user.toggleterm")
 require("user.fugitive")
 require("user.lsp")
+require("user.nvim-dap")
 
 -- require("user.lsp.lspsaga")
 -- require("user.lsp.mason")
