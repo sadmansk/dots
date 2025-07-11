@@ -1,13 +1,13 @@
 vim.opt.completeopt = { "menuone","noinsert","noselect" }
-vim.opt.showmatch = true                -- show matching 
-vim.opt.ignorecase = true               -- case insensitive 
+vim.opt.showmatch = true                -- show matching
+vim.opt.ignorecase = true               -- case insensitive
 vim.opt.smartcase = true                -- unless upper case is typed
-vim.opt.mouse = "v"                     -- middle-click paste with 
-vim.opt.hlsearch = false                 -- highlight search 
+vim.opt.mouse = "v"                     -- middle-click paste with
+vim.opt.hlsearch = false                 -- highlight search
 vim.opt.incsearch = true                -- incremental search
 -- vim.opt.diffopt += "vertical"           -- starts diff mode in vertical split
 vim.opt.hidden = true                   -- allow hidden buffers
-vim.opt.tabstop=4                       -- number of columns occupied by a tab 
+vim.opt.tabstop=4                       -- number of columns occupied by a tab
 vim.opt.softtabstop=4                   -- see multiple spaces as tabstops so <BS> does the right thing
 vim.opt.expandtab = true                -- converts tabs to white space
 vim.opt.shiftwidth=4                    -- width for autoindents
@@ -35,18 +35,3 @@ vim.cmd "\
 if has('python3') \
     set pyx=3 \
 endif"
-
--- autoformat files on save
-vim.cmd "autocmd BufWritePost,FileWritePost *.go silent! !gofumpt -l -w %"
-vim.cmd "autocmd BufWritePost,FileWritePost *.cue silent! !cue fmt %"
-vim.cmd "autocmd BufWritePost,FileWritePost *.tf silent! !terraform fmt %"
-
--- remove trailing whitespace
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  pattern = { "*" },
-  callback = function()
-        local save_cursor = vim.fn.getpos(".")
-        vim.cmd([[%s/\s\+$//e]])
-        vim.fn.setpos(".", save_cursor)
-    end,
-})

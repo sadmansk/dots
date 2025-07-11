@@ -1,22 +1,11 @@
-require("user.plugins-setup")
-require("user.options")
+require("config.lazy")
+require("config.lsp")
+require("config.autocmds")
 require("user.keymaps")
+require("user.options")
+-- require("user.plugins-setup")
 require("user.colorscheme")
-require("user.lualine")
-require("user.telescope")
-require("user.nvim-tree")
-require("user.nvim-treesitter")
--- require("user.nvim-cmp")
-require("user.toggleterm")
-require("user.fugitive")
-require("user.lsp")
-require("user.nvim-dap")
-
--- require("user.lsp.lspsaga")
--- require("user.lsp.mason")
--- require("user.lsp.lspconfig")
--- require("user.lsp.lsp-zero")
-
+---- require("user.nvim-cmp")
 --[[
 
  " Add maktaba and bazel to the runtimepath.
