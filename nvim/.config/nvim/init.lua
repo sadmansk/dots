@@ -1,10 +1,8 @@
 require("config.lazy")
-require("config.lsp")
 require("config.autocmds")
 require("user.keymaps")
 require("user.options")
 -- require("user.plugins-setup")
-require("user.colorscheme")
 ---- require("user.nvim-cmp")
 --[[
 
