@@ -14,23 +14,6 @@ return {
                     },
                 },
             },
-            { -- optional blink completion source for require statements and module annotations
-                "saghen/blink.cmp",
-                opts = {
-                    sources = {
-                        -- add lazydev to your completion providers
-                        default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-                        providers = {
-                            lazydev = {
-                                name = "LazyDev",
-                                module = "lazydev.integrations.blink",
-                                -- make lazydev completions top priority (see `:h blink.cmp`)
-                                score_offset = 100,
-                            },
-                        },
-                    },
-                },
-            },
             {
                 "williamboman/mason.nvim",
                 lazy = false, -- Load immediately to ensure PATH is set
@@ -39,35 +22,17 @@ return {
                 build = ":MasonUpdate",
                 opts = {
                     ensure_installed = {
-                        -- LSP servers (matching your vim.lsp.enable() config)
-                "pyright",
-                "bash-language-server",
-                "copilot-language-server",
-                        "lua-language-server",         -- Lua LSP
-                        "gopls",                       -- Go LSP
+                        -- LSP servers
+                        "pyright",
+                        "bash-language-server",
+                        "lua-language-server",
+                        "gopls",
+                        "copilot-language-server",
 
                         -- Formatters (for conform.nvim and general use)
                         "stylua",
                         "goimports",
-                        -- Note: gofmt comes with Go installation, not managed by Mason
-                        --"prettier",
-                        --"black",
-                        --"isort",
                         "gofumpt",
-
-                        -- Linters and diagnostics
-                        --"golangci-lint",
-                        --"eslint_d",
-                        --"luacheck", -- Lua linting
-                        -- Additional useful tools
-                        -- "delve",      -- Go debugger
-                        -- "shfmt",      -- Shell formatter
-                        -- "shellcheck", -- Shell linter
-
-                        -- Optional but useful additions
-                        -- "markdownlint", -- Markdown linting
-                        -- "yamllint",     -- YAML linting
-                        -- "jsonlint",     -- JSON linting
                     },
                 },
                 config = function(_, opts)
@@ -107,48 +72,27 @@ return {
         },
 
         config = function ()
-            -- Mason setup for LSP server installation
-            local mason_status, mason = pcall(require, "mason")
-            if not mason_status then
-                return
-            end
+            local lspconfig = require("lspconfig")
+            local mason_lspconfig = require("mason-lspconfig")
 
-            local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
-            if not mason_lspconfig_status then
-                return
-            end
-
-            local lspconfig_status, lspconfig = pcall(require, "lspconfig")
-            if not lspconfig_status then
-                return
-            end
-
-            -- Mason setup
-            mason.setup()
-
-            -- Servers to install and configure
+            -- Servers to configure (using lspconfig names)
             local servers = {
                 "pyright",
                 "bashls",
                 "gopls",
-                "lua_ls", -- for Lua development (replaces nvim_workspace from lsp-zero)
+                "lua_ls",
                 "copilot",
             }
 
-            -- Ensure servers are installed
+            -- Setup mason-lspconfig to automatically install servers
             mason_lspconfig.setup({
-                automatic_enable = {
-                    "lua_ls",
-                    "gopls",
-                    "pyright",
-                    "bash-language-server",
-                    "copilot-language-server",
-                },
-                ensure_installed = servers
+                ensure_installed = servers,
+                automatic_installation = true,
             })
+
+            -- Diagnostic configuration
             vim.diagnostic.config({
                 virtual_lines = true,
-                -- virtual_text = true,
                 underline = true,
                 update_in_insert = false,
                 severity_sort = true,
@@ -169,12 +113,15 @@ return {
                     },
                 },
             })
-            -- Setup LSP servers manually instead of using setup_handlers
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-            vim.lsp.enable(servers)
+            -- Get capabilities from blink.cmp if available
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            local has_blink, blink = pcall(require, "blink.cmp")
+            if has_blink then
+                capabilities = blink.get_lsp_capabilities(capabilities)
+            end
 
-            -- Configure lua_ls
+            -- Configure lua_ls with specific settings
             lspconfig.lua_ls.setup({
                 capabilities = capabilities,
                 settings = {
@@ -193,7 +140,7 @@ return {
                 }
             })
 
-            -- Configure gopls
+            -- Configure gopls with Bazel settings (from original config)
             lspconfig.gopls.setup({
                 capabilities = capabilities,
                 settings = {
@@ -211,9 +158,8 @@ return {
                 }
             })
 
-            -- Setup all other servers with default configuration
+            -- Configure other servers with default settings
             for _, server in ipairs(servers) do
-                -- Skip servers we've already configured specifically
                 if server ~= "lua_ls" and server ~= "gopls" then
                     lspconfig[server].setup({
                         capabilities = capabilities,
