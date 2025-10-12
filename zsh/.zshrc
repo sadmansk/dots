@@ -12,6 +12,11 @@ export TERM="xterm-256color"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# set history to be very large
+HISTFILE=~/.zsh_history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -148,8 +153,12 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export PATH="/opt/homebrew/opt/gnu-getopt/bin:$PATH"
-
+export GOPATH="$HOME/go"
+export PATH="/opt/homebrew/opt/gnu-getopt/bin:$GOPATH/bin:$PATH"
+# maglev-infra cli
+export PATH="/Users/skazi/bin:$PATH"
+export PATH="/Users/skazi/.local/bin:$PATH"
 # nvidia bazel stuff
-alias bazel=./home/skazi/maglev/bazel
+alias bazel=./home/skazi/test/bazel
 source ~/.zsh/vpn/vpn.zsh
+export OPENAI_HOST="https://integrate.api.nvidia.com"

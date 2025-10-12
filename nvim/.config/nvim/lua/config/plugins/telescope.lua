@@ -40,6 +40,11 @@ return {
                     -- the default case_mode is "smart_case"
                 },
             },
+            pickers = {
+                colorscheme = {
+                    enable_preview = true,
+                },
+            },
         })
         telescope.load_extension("fzf")
 
@@ -64,5 +69,6 @@ return {
         keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", keymap_opts)					-- list available keymaps
 
         keymap("n", "<leader>fp", "<cmd>Telescope resume<cr>", keymap_opts)					-- resume last search
+        keymap("n", "<leader>ft", "<cmd>Telescope colorscheme<cr>", keymap_opts)					-- resume last search
     end,
 }

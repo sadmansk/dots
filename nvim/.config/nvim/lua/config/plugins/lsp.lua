@@ -1,8 +1,8 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        version = "2.x",
         dependencies = {
-             "hrsh7th/cmp-nvim-lsp",
             {
                 "folke/lazydev.nvim",
                 ft = "lua", -- only load on lua files
@@ -40,6 +40,9 @@ return {
                 opts = {
                     ensure_installed = {
                         -- LSP servers (matching your vim.lsp.enable() config)
+                "pyright",
+                "bash-language-server",
+                "copilot-language-server",
                         "lua-language-server",         -- Lua LSP
                         "gopls",                       -- Go LSP
 
@@ -56,8 +59,6 @@ return {
                         --"golangci-lint",
                         --"eslint_d",
                         --"luacheck", -- Lua linting
-                        --"pint",     -- Laravel Pint for PHP (formatting & linting)
-
                         -- Additional useful tools
                         -- "delve",      -- Go debugger
                         -- "shfmt",      -- Shell formatter
@@ -127,18 +128,22 @@ return {
 
             -- Servers to install and configure
             local servers = {
-                "cssls",
-                "html",
                 "pyright",
                 "bashls",
-                "jsonls",
-                "yamlls",
                 "gopls",
                 "lua_ls", -- for Lua development (replaces nvim_workspace from lsp-zero)
+                "copilot",
             }
 
             -- Ensure servers are installed
             mason_lspconfig.setup({
+                automatic_enable = {
+                    "lua_ls",
+                    "gopls",
+                    "pyright",
+                    "bash-language-server",
+                    "copilot-language-server",
+                },
                 ensure_installed = servers
             })
             vim.diagnostic.config({
@@ -165,12 +170,9 @@ return {
                 },
             })
             -- Setup LSP servers manually instead of using setup_handlers
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-            vim.lsp.enable({
-                "gopls",
-                "lua_ls"
-            })
+            vim.lsp.enable(servers)
 
             -- Configure lua_ls
             lspconfig.lua_ls.setup({

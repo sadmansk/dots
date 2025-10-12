@@ -1,6 +1,6 @@
+require("user.keymaps")
 require("config.lazy")
 require("config.autocmds")
-require("user.keymaps")
 require("user.options")
 -- require("user.plugins-setup")
 ---- require("user.nvim-cmp")
