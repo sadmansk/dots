@@ -7,6 +7,7 @@ return {
         backend = "tmux",
         enabled = true,
       },
+      default = "cursor", -- Set cursor as the default CLI tool
     },
   },
   keys = {
@@ -23,7 +24,7 @@ return {
     },
     {
       "<leader>as",
-      function() require("sidekick.cli").select() end,
+      function() require("sidekick.cli").select({ filter = { installed = true, default="cursor" } }) end,
       -- Or to select only installed tools:
       -- require("sidekick.cli").select({ filter = { installed = true } })
       desc = "Select CLI",
@@ -35,32 +36,63 @@ return {
     },
     {
       "<leader>at",
-      function() require("sidekick.cli").send({ msg = "{this}" }) end,
+      function()
+        require("sidekick.cli").send({
+          filter = { name = "cursor" },
+          msg = "{this}",
+          focus = true
+        })
+      end,
       mode = { "x", "n" },
-      desc = "Send This",
+      desc = "Send This to Cursor",
     },
     {
       "<leader>af",
-      function() require("sidekick.cli").send({ msg = "{file}" }) end,
-      desc = "Send File",
+      function()
+        require("sidekick.cli").send({
+          filter = { name = "cursor" },
+          msg = "{file}",
+          focus = true
+        })
+      end,
+      desc = "Send File to Cursor",
     },
     {
       "<leader>av",
-      function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+      function()
+        require("sidekick.cli").send({
+          filter = { name = "cursor" },
+          msg = "{selection}",
+          focus = true
+        })
+      end,
       mode = { "x" },
-      desc = "Send Visual Selection",
+      desc = "Send Visual Selection to Cursor",
     },
     {
       "<leader>ap",
-      function() require("sidekick.cli").prompt() end,
+      function()
+        require("sidekick.cli").prompt({
+          cb = function(msg)
+            if msg then
+              require("sidekick.cli").send({
+                filter = { name = "cursor" },
+                msg = msg,
+                render = false,
+                focus = true
+              })
+            end
+          end
+        })
+      end,
       mode = { "n", "x" },
-      desc = "Sidekick Select Prompt",
+      desc = "Sidekick Select Prompt for Cursor",
     },
     -- open cursor directly
     {
       "<leader>ac",
-      function() require("sidekick.cli").toggle({ name = "c", focus = true }) end,
-      desc = "Sidekick Toggle Claude",
+      function() require("sidekick.cli").toggle({ name = "cursor", focus = true }) end,
+      desc = "Sidekick Toggle Cursor",
     },
   },
 }
