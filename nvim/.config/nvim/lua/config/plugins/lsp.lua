@@ -158,6 +158,8 @@ return {
                 }
             })
 
+            vim.lsp.enable("copilot")
+
             -- Configure other servers with default settings
             for _, server in ipairs(servers) do
                 if server ~= "lua_ls" and server ~= "gopls" then
