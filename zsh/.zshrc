@@ -114,14 +114,15 @@ source $ZSH/oh-my-zsh.sh
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH=$PATH:/usr/local/bin  # MIDWAY PATH: Path changed for ssh
 export PATH=$HOME/.toolbox/bin:$PATH
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
-export PATH=$PATH:$HOME/zk/bin
-export ZK_PATH="$HOME/Zettelkasten"
+
+# default to python3 -> makes it easy on OS/package setups that install python3 by
+# default but doesn't alias python to python3
+alias python=python3
 alias vim='nvim'
 export EDITOR='nvim'
 
@@ -155,10 +156,8 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export GOPATH="$HOME/go"
 export PATH="/opt/homebrew/opt/gnu-getopt/bin:$GOPATH/bin:$PATH"
+
 # maglev-infra cli
 export PATH="/Users/skazi/bin:$PATH"
 export PATH="/Users/skazi/.local/bin:$PATH"
-# nvidia bazel stuff
-alias bazel=./home/skazi/test/bazel
-source ~/.zsh/vpn/vpn.zsh
 export OPENAI_HOST="https://integrate.api.nvidia.com"

@@ -4,4 +4,4 @@ vim/.vim/bundle
 *.log*
 tags
 tmux/.tmux/plugins
-nvim/.config/nvim/plugin/packer_compiled.lua
+*.DS_Store

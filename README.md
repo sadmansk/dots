@@ -1,40 +1,63 @@
 Dot files for Linux (and maybe some \*nix)
 =========================================
 
-Dependencies:
+# Configuration
+Assuming the repository is cloned to ~/dots/, you can use GNU `stow` for easy management
+of dot files:
+`stow <application_name>`
 
-* Font Awesome 4.0+
-* Nerd Fonts
-* Google Fonts (maybe not needed anymore)
-* GNU Stow (optional, makes it easy to manage dot files)
-* xorg-xbacklight (for brightness controls)
-* compton
-* i3blocks
-* feh (and place wallpaper in `$HOME/Pictures/wallpaper.jpg`
-* rg (ripgrep)
+NOTE: for nvim (and other configs that live within the `~/.config` directory, make sure
+you already have the .config directory created. Otherwise the stow command will link
+`.config -> dots/nvim/.config` instead of `.config/nvim -> dots/nvim/.config/nvim`.
 
-For bash:
+## shell (zsh)
+Requirements:
 
-* powerline
-
-For zsh:
-
+* zsh
 * powerline
 * oh-my-zsh
-* powerlevel9k
-* nerd-fonts
+* powerlevel10k
+* nerd-fonts/menlo fonts
 * fzf
 
-For i3blocks:
+```
+stow zsh
+```
 
+## Window manager (i3blocks)
+
+* i3blocks
 * acpi
 * amixer
+* i3lock
+  * ffmpeg
+* xorg-xbacklight (for brightness controls)
+* compton
+* feh (and place wallpaper in `$HOME/Pictures/wallpaper.jpg`
 
-For i3lock:
+## editor (nvim)
 
-* ffmpeg
+* neovim
+* fzf
+* LSPs:
+  * npm (for copilot)
+  * go
+  * python
+* cursor-cli (if using the default AI assistant, but easy to configure to work with
+  other cli tools)
 
-For vim:
+Lazynvim takes care of installing all plugins, and Mason takes care of installing
+the required language servers.
+
+## terminal mulitplexer (tmux)
+
+* tmux
+* tpm (tmux plugin manager)
+
+All other dependencies (plugins etc.) are installed through the config using tpm
+(if not, try running prefix + I within tmux to install)
+
+## vim (deprecated)
 
 * vundle
 * fzf
@@ -42,10 +65,3 @@ For vim:
 * node (installing through nvm might be easiest if package manager is bad)
 * jedi-language-server
 
-For nvim:
-
-* packer
-* fzf
-
-Setup:
-`stow <application_name>`
