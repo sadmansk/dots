@@ -6,6 +6,10 @@ return {
       mux = {
         backend = "tmux",
         enabled = true,
+        split = {
+          vertical = true, -- vertical or horizontal split
+          size = 0.6, -- size of the split (0-1 for percentage)
+        },
       },
       default = "cursor", -- Set cursor as the default CLI tool
     },
@@ -67,6 +71,30 @@ return {
       end,
       mode = { "x", "n" },
       desc = "Send This to Cursor",
+    },
+    {
+      "<leader>ao",
+      function()
+        require("sidekick.cli").send({
+          filter = { name = "opencode" },
+          msg = "{this}",
+          focus = true
+        })
+      end,
+      mode = { "x", "n" },
+      desc = "Send This to Opencode",
+    },
+    {
+      "<leader>au",
+      function()
+        require("sidekick.cli").send({
+          filter = { name = "claude" },
+          msg = "{this}",
+          focus = true
+        })
+      end,
+      mode = { "x", "n" },
+      desc = "Send This to claude",
     },
     {
       "<leader>af",

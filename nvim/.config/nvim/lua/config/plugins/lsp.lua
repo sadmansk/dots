@@ -15,6 +15,67 @@ return {
                 },
             },
             {
+                "nvimtools/none-ls.nvim",
+                config = function()
+                    local null_ls = require("null-ls")
+
+                    local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+                    local event = "BufWritePre" -- or "BufWritePost"
+                    local async = event == "BufWritePost"
+
+                    null_ls.setup({
+                        on_attach = function(client, bufnr)
+                            if client.supports_method("textDocument/formatting") then
+                                vim.keymap.set("n", "<Leader>fm", function()
+                                    vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+                                end, { buffer = bufnr, desc = "[lsp] format" })
+
+                                -- format on save
+                                vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+                                vim.api.nvim_create_autocmd(event, {
+                                    buffer = bufnr,
+                                    group = group,
+                                    callback = function()
+                                        vim.lsp.buf.format({ bufnr = bufnr, async = async })
+                                    end,
+                                    desc = "[lsp] format on save",
+                                })
+                            end
+
+                            if client.supports_method("textDocument/rangeFormatting") then
+                                vim.keymap.set("x", "<Leader>fm", function()
+                                    vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+                                end, { buffer = bufnr, desc = "[lsp] format" })
+                            end
+                        end,
+                    })
+                end,
+            },
+            {
+                "MunifTanjim/prettier.nvim",
+                config = function()
+                    local prettier = require("prettier")
+
+                    prettier.setup({
+                        bin = 'prettierd',
+                        filetypes = {
+                            "css",
+                            "graphql",
+                            "html",
+                            "javascript",
+                            "javascriptreact",
+                            "json",
+                            "less",
+                            "markdown",
+                            "scss",
+                            "typescript",
+                            "typescriptreact",
+                            "yaml",
+                        },
+                    })
+                end
+            },
+            {
                 "williamboman/mason.nvim",
                 lazy = false, -- Load immediately to ensure PATH is set
                 cmd = "Mason",
@@ -23,7 +84,7 @@ return {
                 opts = {
                     ensure_installed = {
                         -- LSP servers
-                        "pyright",
+                        "python-lsp-server",
                         "bash-language-server",
                         "lua-language-server",
                         "gopls",
@@ -33,6 +94,7 @@ return {
                         "stylua",
                         "goimports",
                         "gofumpt",
+                        "prettier",
                     },
                 },
                 config = function(_, opts)
@@ -72,16 +134,14 @@ return {
         },
 
         config = function ()
-            local lspconfig = require("lspconfig")
+
             local mason_lspconfig = require("mason-lspconfig")
 
             -- Servers to configure (using lspconfig names)
             local servers = {
-                "pyright",
                 "bashls",
                 "gopls",
                 "lua_ls",
-                "copilot",
             }
 
             -- Setup mason-lspconfig to automatically install servers
@@ -122,7 +182,9 @@ return {
             end
 
             -- Configure lua_ls with specific settings
-            lspconfig.lua_ls.setup({
+            vim.lsp.config("lua_ls", {
+                cmd = { "lua-language-server" },
+                root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
                 capabilities = capabilities,
                 settings = {
                     Lua = {
@@ -141,12 +203,21 @@ return {
             })
 
             -- Configure gopls with Bazel settings (from original config)
-            lspconfig.gopls.setup({
+            vim.lsp.config("gopls", {
+                cmd = { "gopls" },
+                root_markers = { "go.work", "go.mod", ".git" },
                 capabilities = capabilities,
+                on_attach = function(client)
+                    local root = client.config.root_dir
+                    if root then
+                        client.config.settings.gopls.env.GOPATH = vim.fn.fnamemodify(root .. "/bazel-bin", ":p")
+                        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+                    end
+                end,
                 settings = {
                     gopls = {
                         env = {
-                            GOPACKAGESDRIVER = './tools/gopackagesdriver.sh'
+                            GOPATH = nil,
                         },
                         directoryFilters = {
                             "-bazel-bin",
@@ -158,16 +229,21 @@ return {
                 }
             })
 
+            -- Configure bashls
+            vim.lsp.config("bashls", {
+                cmd = { "bash-language-server", "start" },
+                root_markers = { ".git" },
+                capabilities = capabilities,
+            })
+
+            -- Enable LSP servers
+            vim.lsp.enable("lua_ls")
+            vim.lsp.enable("gopls")
+            vim.lsp.enable("bashls")
             vim.lsp.enable("copilot")
 
-            -- Configure other servers with default settings
-            for _, server in ipairs(servers) do
-                if server ~= "lua_ls" and server ~= "gopls" then
-                    lspconfig[server].setup({
-                        capabilities = capabilities,
-                    })
-                end
-            end
+            -- configure prettier
+
 
             -- Disable LSP logging unless we're debugging
             vim.lsp.set_log_level("off")

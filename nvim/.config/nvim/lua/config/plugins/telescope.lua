@@ -5,6 +5,7 @@ return {
     dependencies = {
         {'nvim-lua/plenary.nvim' },
         { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- dependency for better sorting performance
+        {'polarmutex/git-worktree.nvim'},
     },
     config = function()
         -- import telescope plugin safely
@@ -14,9 +15,7 @@ return {
         end
         -- import telescope actions safely
         local actions_setup, actions = pcall(require, "telescope.actions")
-        if not actions_setup then
-            return
-        end
+        if not actions_setup then return end
 
         -- configure telescope
         telescope.setup({
@@ -70,5 +69,8 @@ return {
 
         keymap("n", "<leader>fp", "<cmd>Telescope resume<cr>", keymap_opts)					-- resume last search
         keymap("n", "<leader>ft", "<cmd>Telescope colorscheme<cr>", keymap_opts)					-- resume last search
+
+        -- keymap("n", "<leader>fw", telescope.extensions.worktrees.list_worktrees, keymap_opts)
+        -- keymap("n", "<leader>gwc", "<cmd>Telescope git_worktree create_git_worktree<cr>", keymap_opts)
     end,
 }

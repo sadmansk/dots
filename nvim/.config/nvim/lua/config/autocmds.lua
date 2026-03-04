@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         --map("<leader>lf", vim.lsp.buf.format, "Format")
         --map("<leader>v", "<cmd>vsplit | lua vim.lsp.buf.definition()<cr>", "Goto Definition in Vertical Split")
 
-        local bufopts = { buffer = bufnr, noremap = true, silent = true }
+        local bufopts = { buffer = event.buf, noremap = true, silent = true }
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, bufopts)
         vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, bufopts)
         vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, bufopts)

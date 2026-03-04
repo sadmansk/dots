@@ -48,6 +48,25 @@ return {
 	      resize_window = false,
 	      quit_on_open = true
 	    }
-	  }
+	  },
+      filesystem_watchers = {
+          ignore_dirs = {
+              -- ignore bazel auto generated directories
+              "bazel-out",
+              "bazel-bin",
+              "bazel-testlogs",
+              "bazel-*", -- Catch all bazel symlinks
+          },
+      },
+      filters = {
+          custom = {
+              -- Ignore bazel symlink directories
+              "^bazel-out$",
+              "^bazel-bin$",
+              "^bazel-testlogs$",
+              "^bazel-.*", -- Pattern to match any bazel- prefixed directory
+          },
+          exclude = {},
+      },
   },
 }
