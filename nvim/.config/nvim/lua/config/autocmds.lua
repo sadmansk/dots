@@ -59,6 +59,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 return client.supports_method(method, { bufnr = bufnr })
             end
         end
+
+        -- Enable inline completion for copilot
+        local bufnr = event.buf
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if vim.lsp.inline_completion and client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+            vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+        end
     end,
 
 })

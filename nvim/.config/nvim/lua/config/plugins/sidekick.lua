@@ -11,7 +11,7 @@ return {
           size = 0.6, -- size of the split (0-1 for percentage)
         },
       },
-      default = "cursor", -- Set cursor as the default CLI tool
+      default = "opencode", -- Set cursor as the default CLI tool
     },
   },
   keys = {

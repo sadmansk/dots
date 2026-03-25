@@ -83,14 +83,10 @@ return {
                 build = ":MasonUpdate",
                 opts = {
                     ensure_installed = {
-                        -- LSP servers
-                        "python-lsp-server",
-                        "bash-language-server",
-                        "lua-language-server",
-                        "gopls",
+                        -- Copilot language server
                         "copilot-language-server",
 
-                        -- Formatters (for conform.nvim and general use)
+                        -- Formatters
                         "stylua",
                         "goimports",
                         "gofumpt",
@@ -235,6 +231,11 @@ return {
                 root_markers = { ".git" },
                 capabilities = capabilities,
             })
+
+            -- Configure copilot (using config from lsp/copilot.lua)
+            local copilot_config = require("lsp.copilot")
+            copilot_config.capabilities = capabilities
+            vim.lsp.config("copilot", copilot_config)
 
             -- Enable LSP servers
             vim.lsp.enable("lua_ls")
