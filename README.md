@@ -43,7 +43,7 @@ stow zsh
   * npm (for copilot)
   * go
   * python
-* cursor-cli (if using the default AI assistant, but easy to configure to work with
+* opencode/claude (if using the default AI assistant, but easy to configure to work with
   other cli tools)
 
 Lazynvim takes care of installing all plugins, and Mason takes care of installing
@@ -57,11 +57,5 @@ the required language servers.
 All other dependencies (plugins etc.) are installed through the config using tpm
 (if not, try running prefix + I within tmux to install)
 
-## vim (deprecated)
-
-* vundle
-* fzf
-* eclipse.jdt.ls
-* node (installing through nvm might be easiest if package manager is bad)
-* jedi-language-server
-
+## opencode
+Add the API key to `~/.secrets/env` file as `export NVINFERENCE_API_KEY=<API-KEY>`

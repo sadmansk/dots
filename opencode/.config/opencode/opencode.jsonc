@@ -1,0 +1,99 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "autoupdate": true,
+  "provider": {
+    "inference.nvidia.com": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "inference.nvidia.com",
+      "options": {
+        "baseURL": "https://inference-api.nvidia.com/v1",
+        "apiKey": {env:NVINFERENCE_API_KEY}
+      },
+      "models": {
+        "aws/anthropic/bedrock-claude-opus-4-6": {
+          "name": "claude opus 4.6",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "aws/anthropic/bedrock-claude-sonnet-4-6": {
+          "name": "claude-sonnet-4-6",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "aws/anthropic/claude-haiku-4-5-v1": {
+          "name": "claude-haiku-4-5-v1",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "nvidia/nvidia/Nemotron-3-Nano-30B-A3B": {
+          "name": "nemotron 3 nano",
+          "limit": {
+            "context": 255000,
+            "output": 65536
+          }
+        },
+        "nvidia/nvidia/nemotron-nano-12b-v2-vl": {
+          "name": "nemotron multimodal",
+          "limit": {
+            "context": 128000,
+            "output": 65536
+          }
+        },
+      }
+    },
+    "inference.nvidia.com-openai": {
+      "npm": "@ai-sdk/openai",
+      "name": "inference.nvidia.com-openai",
+      "options": {
+        "baseURL": "https://inference-api.nvidia.com/v1",
+        "apiKey": {env:NVINFERENCE_PERSONAL_KEY}
+      },
+      "models": {
+        "openai/openai/gpt-5.1-codex": {
+          "name": "openai-5.1-codex",
+          "limit": {
+            "context": 400000,
+            "output": 65536
+          }
+        },
+        "openai/openai/gpt-5.2-codex": {
+          "name": "openai-5.2-codex",
+          "limit": {
+            "context": 400000,
+            "output": 65536
+          }
+        }
+      }
+    }
+
+  },
+  "mode": {
+    "build": {
+      "model": "inference.nvidia.com/aws/anthropic/bedrock-claude-sonnet-4-6",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
+      }
+    },
+    "plan": {
+      "model": "inference.nvidia.com/aws/anthropic/bedrock-claude-opus-4-6",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      }
+    }
+  },
+  "agent": {
+    "compaction": {
+      "model": "inference.nvidia.com/nvidia/nvidia/Nemotron-3-Nano-30B-A3B",
+    }
+  }
+}
