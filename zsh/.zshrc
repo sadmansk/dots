@@ -162,5 +162,3 @@ export PATH="/Users/skazi/bin:$PATH"
 export PATH="/Users/skazi/.local/bin:$PATH"
 export OPENAI_HOST="https://integrate.api.nvidia.com"
 
-# Load secrets
-[[ -f ~/.secrets/env ]] && source ~/.secrets/env
