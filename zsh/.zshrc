@@ -108,17 +108,19 @@ plugins=(git)
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source $ZSH/oh-my-zsh.sh
 
 # fzf
 fpath=(~/.zsh/completion $fpath)
-autoload -Uz compinit && compinit -i
 
 source <(fzf --zsh)
 
 export PATH="/usr/local/opt/qt/bin:$PATH"
 export PATH=$PATH:/usr/local/bin  # MIDWAY PATH: Path changed for ssh
 export PATH=$HOME/.toolbox/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/var/lib/snapd/snap/bin:$PATH
 
 # default to python3 -> makes it easy on OS/package setups that install python3 by
 # default but doesn't alias python to python3
@@ -150,15 +152,15 @@ export PATH="/usr/local/opt/libarchive/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# maglev-infra cli
+if [[ "$OSTYPE" == "darwin"* ]]; then
 source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+  export PATH="/opt/homebrew/opt/gnu-getopt/bin:$GOPATH/bin:$PATH"
+  export PATH="/Users/skazi/bin:$PATH"
+  export PATH="/Users/skazi/.local/bin:$PATH"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export GOPATH="$HOME/go"
-export PATH="/opt/homebrew/opt/gnu-getopt/bin:$GOPATH/bin:$PATH"
-
-# maglev-infra cli
-export PATH="/Users/skazi/bin:$PATH"
-export PATH="/Users/skazi/.local/bin:$PATH"
-export OPENAI_HOST="https://integrate.api.nvidia.com"
-
