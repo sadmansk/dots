@@ -11,21 +11,28 @@
       },
       "models": {
         "aws/anthropic/bedrock-claude-opus-4-6": {
-          "name": "claude opus 4.6",
+          "name": "Claude Opus 4.6",
+          "limit": {
+            "context": 200000,
+            "output": 65536
+          }
+        },
+        "aws/anthropic/bedrock-claude-opus-4-5": {
+          "name": "Claude Opus 4.5",
           "limit": {
             "context": 200000,
             "output": 65536
           }
         },
         "aws/anthropic/bedrock-claude-sonnet-4-6": {
-          "name": "claude-sonnet-4-6",
+          "name": "Claude Sonnet 4.6",
           "limit": {
             "context": 200000,
             "output": 65536
           }
         },
         "aws/anthropic/claude-haiku-4-5-v1": {
-          "name": "claude-haiku-4-5-v1",
+          "name": "Claude Haiku 4.5 v1",
           "limit": {
             "context": 200000,
             "output": 65536
@@ -52,22 +59,48 @@
       "name": "inference.nvidia.com-openai",
       "options": {
         "baseURL": "https://inference-api.nvidia.com/v1",
-        "apiKey": "{env:NVINFERENCE_PERSONAL_KEY}"
+        "apiKey": "{env:NVINFERENCE_API_KEY}"
       },
       "models": {
-        "openai/openai/gpt-5.1-codex": {
-          "name": "openai-5.1-codex",
+        "openai/openai/gpt-5.3-codex": {
+          "name": "GPT 5.3 Codex",
           "limit": {
             "context": 400000,
             "output": 65536
           }
         },
-        "openai/openai/gpt-5.2-codex": {
-          "name": "openai-5.2-codex",
+        "openai/openai/gpt-5.4": {
+          "name": "GPT 5.4",
           "limit": {
             "context": 400000,
             "output": 65536
           }
+        },
+        "openai/openai/gpt-5.5": {
+          "name": "GPT 5.5",
+          "limit": {
+            "context": 400000,
+            "output": 65536
+          }
+        }
+      }
+    },
+    "omlx": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "oMLX (local)",
+      "options": {
+        "baseURL": "http://127.0.0.1:8000/v1",
+        "apiKey": "1111"
+      },
+      "models": {
+        "mlx-community/gemma-4-26b-a4b-it-4bit": {
+            "name": "Gemma 4 26B 4-bit"
+        },
+        "unsloth/Qwen3.6-35B-A3B-UD-MLX-4bit ": {
+            "name": "Qwen 3.6 35B 4-bit"
+        },
+        "mlx-community/gemma-4-31b-it-4bit": {
+            "name": "Gemma 4 31B 4-bit"
         }
       }
     }
@@ -75,7 +108,7 @@
   },
   "mode": {
     "build": {
-      "model": "inference.nvidia.com/aws/anthropic/bedrock-claude-sonnet-4-6",
+      "model": "inference.nvidia.com-openai/openai/openai/gpt-5.5",
       "tools": {
         "write": true,
         "edit": true,
@@ -88,6 +121,22 @@
         "write": false,
         "edit": false,
         "bash": false
+      }
+    },
+    "investigate": {
+      "model": "inference.nvidia.com-openai/openai/openai/gpt-5.5",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": true
+      }
+    },
+    "legacy-build": {
+      "model": "inference.nvidia.com/aws/anthropic/bedrock-claude-sonnet-4-6",
+      "tools": {
+        "write": true,
+        "edit": true,
+        "bash": true
       }
     }
   },
