@@ -155,10 +155,15 @@ export NVM_DIR="$HOME/.nvm"
 
 # maglev-infra cli
 if [[ "$OSTYPE" == "darwin"* ]]; then
-source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+  source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
   export PATH="/opt/homebrew/opt/gnu-getopt/bin:$GOPATH/bin:$PATH"
   export PATH="/Users/skazi/bin:$PATH"
   export PATH="/Users/skazi/.local/bin:$PATH"
+
+  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+
+  autoload -Uz compinit
+  compinit
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
