@@ -45,6 +45,7 @@ stow zsh
   * python
 * opencode/claude (if using the default AI assistant, but easy to configure to work with
   other cli tools)
+* tree-sitter-cli
 
 Lazynvim takes care of installing all plugins, and Mason takes care of installing
 the required language servers.

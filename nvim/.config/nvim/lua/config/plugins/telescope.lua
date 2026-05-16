@@ -1,6 +1,6 @@
 return {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.8',
+    version = 'v0.2.1',
     -- or                              , branch = '0.1.x',
     dependencies = {
         {'nvim-lua/plenary.nvim' },
@@ -22,6 +22,16 @@ return {
             -- configure custom mappings
             defaults = {
                 path_display = { "truncate" },
+                vimgrep_arguments = {
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                    "--no-ignore-vcs",
+                },
                 mappings = {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -52,8 +62,8 @@ return {
         local keymap_opts = { noremap = true, silent = true }
         -- telescope
         -- find files within current working directory, respects .gitignore
-        keymap("n", "<leader>ff", "<cmd>Telescope find_files no_ignore=true<cr>", keymap_opts) -- find files within current working directory, respects .gitignore
-        keymap("n", "<leader>fg", "<cmd>Telescope find_files<cr>", keymap_opts)				-- find files within current working directory, respects .gitignore
+        keymap("n", "<leader>ff", "<cmd>Telescope find_files no_ignore=true<cr>", keymap_opts) -- find files within current working directory
+        keymap("n", "<leader>fg", "<cmd>Telescope find_files hidden=true<cr>", keymap_opts)				-- find files within current working directory, respects .gitignore, includes hidden files
 
         keymap("n", "<leader>fr", "<cmd>Telescope lsp_references<cr>", keymap_opts)			-- lists lsp references for word under cursor
         keymap("n", "<leader>fd", "<cmd>Telescope lsp_definitions<cr>", keymap_opts)			-- find lsp defiitions for word under cursor

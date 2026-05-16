@@ -64,13 +64,13 @@ return {
       "<leader>at",
       function()
         require("sidekick.cli").send({
-          filter = { name = "cursor" },
+          filter = { name = "opencode" },
           msg = "{this}",
           focus = true
         })
       end,
       mode = { "x", "n" },
-      desc = "Send This to Cursor",
+      desc = "Send This to opencode",
     },
     {
       "<leader>ao",
@@ -100,24 +100,24 @@ return {
       "<leader>af",
       function()
         require("sidekick.cli").send({
-          filter = { name = "cursor" },
+          filter = { name = "opencode" },
           msg = "{file}",
           focus = true
         })
       end,
-      desc = "Send File to Cursor",
+      desc = "Send File to opencode",
     },
     {
       "<leader>av",
       function()
         require("sidekick.cli").send({
-          filter = { name = "cursor" },
+          filter = { name = "opencode" },
           msg = "{selection}",
           focus = true
         })
       end,
       mode = { "x" },
-      desc = "Send Visual Selection to Cursor",
+      desc = "Send Visual Selection to opencode",
     },
     {
       "<leader>ap",
@@ -126,7 +126,7 @@ return {
           cb = function(msg)
             if msg then
               require("sidekick.cli").send({
-                filter = { name = "cursor" },
+                filter = { name = "opencode" },
                 msg = msg,
                 render = false,
                 focus = true
@@ -136,7 +136,7 @@ return {
         })
       end,
       mode = { "n", "x" },
-      desc = "Sidekick Select Prompt for Cursor",
+      desc = "Sidekick Select Prompt for opencode",
     },
     -- open cursor directly
     {

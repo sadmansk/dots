@@ -247,7 +247,7 @@ return {
 
 
             -- Disable LSP logging unless we're debugging
-            vim.lsp.set_log_level("off")
+            vim.lsp.log.set_level("off")
         end
 
     },

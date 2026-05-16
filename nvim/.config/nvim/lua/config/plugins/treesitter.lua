@@ -1,43 +1,34 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = 'master',
+        branch = 'main',
         lazy = false,
         build = ":TSUpdate",
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
+            { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
             "nvim-treesitter/nvim-treesitter-context",
         },
-        opts = {
-            -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-            ensure_installed = { "go", "python", "javascript", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
+        config = function()
+            require('nvim-treesitter').setup {}
 
-            -- Install parsers synchronously (only applied to `ensure_installed`)
-            sync_install = false,
+            -- Enable treesitter highlighting for common filetypes
+            local parsers = { "go", "python", "javascript", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" }
 
-            -- Automatically install missing parsers when entering buffer
-            -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-            auto_install = true,
+            -- Install parsers on startup
+            require('nvim-treesitter').install(parsers)
 
-            ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-            -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-            highlight = {
-                enable = true,
-                disable = function(lang, buf)
+            -- Enable highlighting via FileType autocommand
+            vim.api.nvim_create_autocmd('FileType', {
+                pattern = parsers,
+                callback = function(ev)
                     local max_filesize = 100 * 1024 -- 100 KB
-                    local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                    local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
                     if ok and stats and stats.size > max_filesize then
-                        return true
+                        return
                     end
+                    vim.treesitter.start()
                 end,
-
-                -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-                -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-                -- Using this option may slow down your editor, and you may see some duplicate highlights.
-                -- Instead of true it can also be a list of languages
-                additional_vim_regex_highlighting = false,
-            }
-        },
+            })
+        end,
     }
 }
