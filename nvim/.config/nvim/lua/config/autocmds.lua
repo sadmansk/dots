@@ -69,3 +69,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 
 })
+
+-- auto indent lines in .md and .tex files
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "tex" },
+  callback = function()
+    vim.opt_local.textwidth = 80
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.formatoptions:append("t")
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "gitcommit",
+  callback = function()
+    vim.opt_local.textwidth = 72
+    vim.opt_local.wrap = true
+    vim.opt_local.linebreak = true
+    vim.opt_local.formatoptions:append("t")
+  end,
+})
