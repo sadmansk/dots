@@ -11,7 +11,7 @@ return {
           size = 0.6, -- size of the split (0-1 for percentage)
         },
       },
-      default = "opencode", -- Set cursor as the default CLI tool
+      default = "opencode", -- Set opencode as the default CLI tool
     },
   },
   keys = {
@@ -85,6 +85,18 @@ return {
       desc = "Send This to Opencode",
     },
     {
+      "<leader>ax",
+      function()
+        require("sidekick.cli").send({
+          filter = { name = "codex" },
+          msg = "{this}",
+          focus = true
+        })
+      end,
+      mode = { "x", "n" },
+      desc = "Send This to codex",
+    },
+    {
       "<leader>au",
       function()
         require("sidekick.cli").send({
@@ -138,11 +150,11 @@ return {
       mode = { "n", "x" },
       desc = "Sidekick Select Prompt for opencode",
     },
-    -- open cursor directly
+    -- open codex directly
     {
       "<leader>ac",
-      function() require("sidekick.cli").toggle({ name = "cursor", focus = true }) end,
-      desc = "Sidekick Toggle Cursor",
+      function() require("sidekick.cli").toggle({ name = "codex", focus = true }) end,
+      desc = "Sidekick Toggle codex",
     },
   },
 }
