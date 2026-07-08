@@ -2,6 +2,18 @@
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
   "provider": {
+    "openai": {
+       "models": {
+        "gpt-5.5": {
+          "options": {
+            "reasoningEffort": "xhigh"
+          }
+        }
+      },
+      "options": {
+        "reasoningEffort": "xhigh"
+      }
+    },
     "inference.nvidia.com": {
       "npm": "@ai-sdk/openai-compatible",
       "name": "inference.nvidia.com",
@@ -108,7 +120,10 @@
   },
   "mode": {
     "build": {
-      "model": "inference.nvidia.com-openai/openai/openai/gpt-5.5",
+      // Previous model: "inference.nvidia.com-openai/openai/openai/gpt-5.5"
+      "mode": "primary",
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh",
       "tools": {
         "write": true,
         "edit": true,
@@ -116,7 +131,10 @@
       }
     },
     "plan": {
-      "model": "inference.nvidia.com/aws/anthropic/bedrock-claude-opus-4-6",
+      // Previous model: "inference.nvidia.com/aws/anthropic/bedrock-claude-opus-4-6"
+      "mode": "primary",
+      "model": "openai/gpt-5.5",
+      "variant": "xhigh",
       "tools": {
         "write": false,
         "edit": false,
@@ -124,6 +142,7 @@
       }
     },
     "investigate": {
+      "mode": "primary",
       "model": "inference.nvidia.com-openai/openai/openai/gpt-5.5",
       "tools": {
         "write": false,
