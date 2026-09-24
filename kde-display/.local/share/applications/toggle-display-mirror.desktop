@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Toggle Display Mirroring
+Comment=Toggle between mirrored and extended displays
+Exec=toggle-display-mirror
+Icon=video-display
+NoDisplay=true
+X-KDE-Shortcuts=Meta+Shift+P

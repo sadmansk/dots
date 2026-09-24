@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Mirror Displays
+Comment=Mirror DP-3 from HDMI-A-1
+Exec=set-display-mode mirror
+Icon=video-display
+NoDisplay=true
+X-KDE-Shortcuts=Meta+Shift+M

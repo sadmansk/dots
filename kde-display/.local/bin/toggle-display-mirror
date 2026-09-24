@@ -1,0 +1,15 @@
+#!/bin/sh
+set -eu
+
+if kscreen-doctor -o | awk '
+    /Output: .* DP-3 / { dp = 1; next }
+    dp && /replication source:/ { exit ($0 ~ /0$/) }
+    END { if (!dp) exit 2 }
+'; then
+    kscreen-doctor \
+        output.DP-3.mirror.none \
+        output.HDMI-A-1.position.0,0 \
+        output.DP-3.position.2560,0
+else
+    kscreen-doctor output.DP-3.mirror.HDMI-A-1
+fi

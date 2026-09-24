@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Use DisplayPort Display Only
+Comment=Enable DP-3 and disable HDMI-A-1
+Exec=set-display-mode dp
+Icon=video-display
+NoDisplay=true
+X-KDE-Shortcuts=Meta+Shift+D

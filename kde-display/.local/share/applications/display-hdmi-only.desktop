@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Use HDMI Display Only
+Comment=Enable HDMI-A-1 and disable DP-3
+Exec=set-display-mode hdmi
+Icon=video-display
+NoDisplay=true
+X-KDE-Shortcuts=Meta+Shift+H

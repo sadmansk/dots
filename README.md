@@ -60,3 +60,20 @@ All other dependencies (plugins etc.) are installed through the config using tpm
 
 ## opencode
 Add the API key to `~/.secrets/env` file as `export NVINFERENCE_API_KEY=<API-KEY>`
+
+## KDE display shortcuts
+
+Requires KDE Plasma 6, `kscreen-doctor`, and GNU Stow. The configured outputs are
+`HDMI-A-1` and `DP-3`.
+
+```
+stow kde-display
+kbuildsycoca6
+```
+
+Shortcuts:
+
+* `Meta+Shift+H`: HDMI only
+* `Meta+Shift+D`: DisplayPort only
+* `Meta+Shift+M`: mirror
+* `Meta+Shift+P`: toggle mirror/extended
