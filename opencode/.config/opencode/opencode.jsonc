@@ -3,13 +3,25 @@
   "autoupdate": true,
   "provider": {
     "openai": {
-       "models": {
-         "gpt-5.6-sol": {
+      "models": {
+        "gpt-5.6-sol": {
+          "cost": {
+            "input": 4,
+            "output": 20,
+            "cache_read": 0.4,
+            "cache_write": 5,
+            "context_over_200k": {
+              "input": 8,
+              "output": 30,
+              "cache_read": 0.8,
+              "cache_write": 10
+            }
+          },
           "options": {
             "reasoningEffort": "xhigh"
           }
-         }
-       },
+        }
+      },
       "options": {
         "reasoningEffort": "xhigh"
       }
@@ -120,10 +132,9 @@
   },
   "mode": {
     "build": {
-      // Previous model: "inference.nvidia.com-openai/openai/openai/gpt-5.5"
       "mode": "primary",
       "model": "openai/gpt-5.6-sol",
-      "variant": "xhigh",
+      "variant": "medium",
       "tools": {
         "write": true,
         "edit": true,
@@ -131,7 +142,6 @@
       }
     },
     "plan": {
-      // Previous model: "inference.nvidia.com/aws/anthropic/bedrock-claude-opus-4-6"
       "mode": "primary",
       "model": "openai/gpt-5.6-sol",
       "variant": "xhigh",
